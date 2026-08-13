@@ -16,10 +16,10 @@ import java.util.UUID;
 @Service
 public class PaymentService {
 
-    @Value("{razorpay.key_id}")
+    @Value("${razorpay.key_id}")
     private String keyId;
 
-    @Value("{razorpay.key_secret}")
+    @Value("${razorpay.key_secret}")
     private String keySecret;
 
     @Autowired
@@ -29,8 +29,8 @@ public class PaymentService {
         RazorpayClient client = new RazorpayClient(keyId,keySecret);
 
         JSONObject orderRequest = new JSONObject();
-        orderRequest.put("amount",(int)(orderDetails.getAmount()*100));
-        orderRequest.put("Currency","INR");
+        orderRequest.put("amount", orderDetails.getAmount().intValue() * 100);
+        orderRequest.put("currency","INR");
         orderRequest.put("receipt","txn_"+ UUID.randomUUID());
         Order razorPayOrder = client.orders.create(orderRequest);
         System.out.println(razorPayOrder.toString());

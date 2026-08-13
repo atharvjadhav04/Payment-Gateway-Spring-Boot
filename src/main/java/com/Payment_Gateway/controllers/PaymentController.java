@@ -23,6 +23,7 @@ public class PaymentController {
             String response = paymentService.createOrder(order);
             return ResponseEntity.ok(response);
         }catch (Exception e){
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error Creating Order");
         }
     }
